@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trek N Tread | Book Adventure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")
+        center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      background: #fff;
+      width: 100%;
+      max-width: 650px;
+      padding: 30px;
+      border-radius: 12px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1b5e20;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    select, input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    button {
+      background: #2e7d32;
+      color: #fff;
+      border: none;
+      margin-top: 25px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #1b5e20;
+    }
+
+    .price-box {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Book Your Adventure</h1>
+
+  <form id="bookingForm">
+
+    <label>Activity</label>
+    <select id="activity" required>
+      <option value="">Select activity</option>
+      <option value="Bike Riding">Bike Riding</option>
+      <option value="Hiking">Hiking</option>
+      <option value="Team Building">Team Building</option>
+    </select>
+
+    <label>Route / Trail</label>
+    <select id="route" required>
+      <option value="">Select route</option>
+    </select>
+<label>Full Name</label>
+<input type="text" id="name" required />
+
+<label>Email Address</label>
+<input type="email" id="email" required />
+
+    <label>Number of People</label>
+    <input type="number" id="people" min="1" required />
+
+    <label>Phone Number (Mpesa)</label>
+    <input type="tel" id="phone" placeholder="+254XXXXXXXX" required />
+
+    <div class="price-box" id="priceBox">
+      Total: KES 0
+    </div>
+
+    <button type="submit">Book & Pay</button>
+
+  </form>
+</div>
+
+<script>
+  const routes = {
+    "Bike Riding": {
+      "Ngong Hills Loop": 1000,
+      "Karura Forest Trail": 1200
+    },
+    "Hiking": {
+      "Mount Longonot": 2000,
+      "Elephant Hill": 2500
+    },
+    "Team Building": {
+      "Forest Challenge Course": 3000,
+      "Outdoor Games Park": 2500
+    }
+  };
+
+  const activityEl = document.getElementById("activity");
+  const routeEl = document.getElementById("route");
+  const peopleEl = document.getElementById("people");
+  const priceBox = document.getElementById("priceBox");
+
+  function updateRoutes() {
+    routeEl.innerHTML = '<option value="">Select route</option>';
+    const selected = routes[activityEl.value];
+    if (!selected) return;
+
+    Object.keys(selected).forEach(route => {
+      const opt = document.createElement("option");
+      opt.value = route;
+      opt.textContent = `${route} (KES ${selected[route]})`;
+      routeEl.appendChild(opt);
+    });
+  }
+
+  function updatePrice() {
+    const activity = activityEl.value;
+    const route = routeEl.value;
+    const people = Number(peopleEl.value);
+
+    if (!activity || !route || !people) {
+      priceBox.textContent = "Total: KES 0";
+      return;
+    }
+
+    const price = routes[activity][route];
+    priceBox.textContent = `Total: KES ${price * people}`;
+  }
+
+  activityEl.addEventListener("change", updateRoutes);
+  routeEl.addEventListener("change", updatePrice);
+  peopleEl.addEventListener("input", updatePrice);
+
+  document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const payload = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    activity: activityEl.value,
+    route: routeEl.value,
+    people: Number(peopleEl.value)
+  };
+
+  try {
+    const payRes = await fetch("http://localhost:3000/pay", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const payData = await payRes.json();
+
+    if (!payRes.ok) {
+      return alert("Failed to initiate payment");
+    }
+
+    alert("STK Push sent. Please confirm payment on your phone.");
+
+    // Wait a bit then verify
+    setTimeout(async () => {
+      const verifyRes = await fetch("http://localhost:3000/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reference: payData.reference })
+      });
+
+      const verifyData = await verifyRes.json();
+
+      if (verifyRes.ok) {
+        alert("Payment successful! Booking confirmed.");
+      } else {
+        alert("Payment not completed yet. Try again.");
+      }
+    }, 8000);
+
+  } catch (err) {
+    alert("Backend not reachable");
+  }
+});
+
+</script>
+
+</body>
+</html>
