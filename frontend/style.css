@@ -14,6 +14,7 @@
   font-family: "Segoe UI", sans-serif;
 }
 
+
 /* NAVBAR */
 .navbar {
   position: fixed;
@@ -216,17 +217,17 @@
   background: var(--sunset-orange-dark);
 }
 
-/* HERO SECTION */
+/* HERO SECTION fot SHARED HERO-LIKE HEADERS */
 .hero {
   height: 100vh;
-  background: url("landing_page_image.png") center/cover no-repeat;
+  background: url("./assets/images/landing_page_image.png") center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.hero-overlay {
+.hero-overlay{
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -854,14 +855,48 @@
 }
 
 
-/*           BIKING PAGE                            *****/
+/*           BIKING PAGE  $ HIKING PAGE           *****/
 
+/* =========================
+   Hiking head.
+========================= */
+.hiking-head {
+  height: 60vh;
+  background: url('./assets/images/hiking.png') center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+.head-content {
+  position: relative;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  max-width: 800px;
+  padding: 0 1.5rem;
+}
+
+.head-content h1 {
+  font-family: 'Roboto Slab', serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.head-content p {
+  font-size: 1.2rem;
+}
 /* =========================
    BIKING PAGE HEADER
 ========================= */
 .biking-header {
   height: 60vh;
-  background: url('biking.png') center/cover no-repeat;
+  background: url('./assets/images/biking.png') center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;

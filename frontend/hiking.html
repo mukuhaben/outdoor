@@ -26,39 +26,95 @@
 
 <!-- ================= NAVBAR (unchanged) ================= -->
 <header class="navbar">
-  <div class="nav-container">
-    <div class="logo">Trek & Tread Africa</div>
+    <div class="nav-container">
+      <div class="logo">Trek & Tread Africa</div>
 
-    <nav class="desktop-nav">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
+      <!-- DESKTOP NAV -->
+      <nav class="desktop-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <!--<li><a href="#about">About Us</a></li>-->
+          <li class="dropdown">
+            <div class="dropdown-trigger">
+              <a href="#activities" class="dropdown-link">Activities</a>
+              <button class="dropdown-toggle" aria-label="Open activities menu">
+                ▾
+              </button>
+            </div>
 
-        <li class="dropdown">
-          <div class="dropdown-trigger">
-            <a href="index.html#activities" class="dropdown-link">Activities</a>
-            <button class="dropdown-toggle">▾</button>
-          </div>
+            <ul class="dropdown-menu">
+              <li><a href="biking.html">Biking</a></li>
+              <li><a href="hiking.html">Hiking</a></li>
+              <li><a href="team-building.html">Team Building</a></li>
+            </ul>
+          </li>
 
-          <ul class="dropdown-menu">
-            <li><a href="biking.html">Biking</a></li>
-            <li><a href="hiking.html">Hiking</a></li>
-            <li><a href="team-building.html">Team Building</a></li>
-          </ul>
-        </li>
 
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
 
-    <button class="cta-btn desktop-cta">Book Adventure</button>
+      <!-- DESKTOP CTA -->
+      <button class="cta-btn desktop-cta" id="bookAdventureBtn">
+        <a href="#">Book Adventure</a>
+      </button>
+
+      <!-- HAMBURGER -->
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+ 
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+      <!-- CLOSE BUTTON -->
+    <button class="mobile-close" aria-label="Close menu">&times;</button>
+    <ul>
+      <li><a href="index.html" class="mobile-link">Home</a></li>
+     <!-- <li><a href="#about" class="mobile-link">About Us</a></li>-->
+
+      <li class="mobile-dropdown">
+
+        <div class="mobile-dropdown-trigger">
+          <a href="#activities" class="mobile-dropdown-link">Activities</a>
+
+          <button class="mobile-dropdown-toggle" aria-label="Open activities menu">
+            ▾
+          </button>
+        </div>
+
+        <ul class="mobile-dropdown-menu">
+          <li><a href="biking.html">Biking</a></li>
+          <li><a href="hiking.html">Hiking</a></li>
+          <li><a href="team-building.html">Team Building</a></li>
+        </ul>
+
+      </li>
+
+
+      
+      <li><a href="#contact" class="mobile-link">Contact</a></li>
+
+      <!-- <li>
+        <button class="cta-btn mobile-link" id="mobileBookBtn">
+          <a href="#">Book Adventure</a>
+        </button>
+      </li> -->
+    </ul>
   </div>
-</header>
+
+  <!-- OVERLAY -->
+  <div class="menu-overlay" id="menuOverlay"></div>
 
 <!-- ================= HEADER ================= -->
 
-<header class="biking-header">
-  <div class="header-overlay"></div>
-  <div class="header-content">
+<header class="hiking-head">
+  <div class="head-overlay"></div>
+  <div class="head-content">
     <h1>Trek & Tread Hiking Adventures</h1>
     <p>Explore our thrilling Hike routes and book your next adventure today!</p>
   </div>
@@ -264,6 +320,9 @@ loadHikingEvents();
 
 </section>
 
+
+<!--hambuger mobile open and close-->
+<script src="script.js"></script>
 
   <!-- FOOTER -->
 <footer class="site-footer">

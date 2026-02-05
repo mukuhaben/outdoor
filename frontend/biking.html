@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trek & Tread Biking</title>
+    <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <!-- Favicon -->
   <link rel="icon" href="./assets/images/favicon.png" />
@@ -26,35 +28,94 @@
 
 <!-- ================= NAVBAR (unchanged) ================= -->
 <header class="navbar">
-  <div class="nav-container">
-    <div class="logo">Trek & Tread Africa</div>
+    <div class="nav-container">
+      <div class="logo">Trek & Tread Africa</div>
 
-    <nav class="desktop-nav">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
+      <!-- DESKTOP NAV -->
+      <nav class="desktop-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+        <!--  <li><a href="#about">About Us</a></li>-->
+          <li class="dropdown">
+            <div class="dropdown-trigger">
+              <a href="#activities" class="dropdown-link">Activities</a>
+              <button class="dropdown-toggle" aria-label="Open activities menu">
+                ▾
+              </button>
+            </div>
 
-        <li class="dropdown">
-          <div class="dropdown-trigger">
-            <a href="index.html#activities" class="dropdown-link">Activities</a>
-            <button class="dropdown-toggle">▾</button>
-          </div>
+            <ul class="dropdown-menu">
+              <li><a href="biking.html">Biking</a></li>
+              <li><a href="hiking.html">Hiking</a></li>
+              <li><a href="team-building.html">Team Building</a></li>
+            </ul>
+          </li>
 
-          <ul class="dropdown-menu">
-            <li><a href="biking.html">Biking</a></li>
-            <li><a href="hiking.html">Hiking</a></li>
-            <li><a href="team-building.html">Team Building</a></li>
-          </ul>
-        </li>
 
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
 
-    <button class="cta-btn desktop-cta">Book Adventure</button>
+      <!-- DESKTOP CTA -->
+      <button class="cta-btn desktop-cta" id="bookAdventureBtn">
+        <a href="#">Book Adventure</a>
+      </button>
+
+      <!-- HAMBURGER -->
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+      <!-- CLOSE BUTTON -->
+    <button class="mobile-close" aria-label="Close menu">&times;</button>
+    <ul>
+      <li><a href="index.html" class="mobile-link">Home</a></li>
+     <!-- <li><a href="#about" class="mobile-link">About Us</a></li>-->
+
+      <li class="mobile-dropdown">
+
+        <div class="mobile-dropdown-trigger">
+          <a href="#activities" class="mobile-dropdown-link">Activities</a>
+
+          <button class="mobile-dropdown-toggle" aria-label="Open activities menu">
+            ▾
+          </button>
+        </div>
+
+        <ul class="mobile-dropdown-menu">
+          <li><a href="biking.html">Biking</a></li>
+          <li><a href="hiking.html">Hiking</a></li>
+          <li><a href="team-building.html">Team Building</a></li>
+        </ul>
+
+      </li>
+
+
+      
+      <li><a href="#contact" class="mobile-link">Contact</a></li>
+
+      <!-- <li>
+        <button class="cta-btn mobile-link" id="mobileBookBtn">
+          <a href="booking.html">Book Adventure</a>
+        </button>
+      </li> -->
+    </ul>
   </div>
-</header>
 
+  <!-- OVERLAY -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  
 <!-- ================= HEADER ================= -->
+ 
 <header class="biking-header">
   <div class="header-overlay"></div>
   <div class="header-content">
@@ -66,49 +127,51 @@
 <!-- ================= FILTER BAR (UI READY) ================= -->
 <section class="bike-filters">
   <div class="filter-container">
-    <select id="difficultyFilter">
+
+    <select>
       <option value="">Difficulty</option>
       <option value="">Easy</option>
       <option value="">Medium</option>
       <option value="">Hard</option>
     </select>
 
-<div class="filter-container">
-    <select id="Distance (km)">
+    <select>
       <option value="">Distance (km)</option>
       <option value="">0-10</option>
       <option value="">10-25</option>
       <option value="">25+</option>
     </select>
-  </div>
+  
 
-  <div class="filter-container">
-    <select id="Cost">
+<!--  <select> 
       <option value="">Cost</option>
       <option value="">Free</option>
       <option value="">$0-50</option>
       <option value="">$50+</option>
-    </select>
-  </div>
+   </select>
+  -->
 
-<div class="filter-container">
-    <select id="Duration">
+<select> 
       <option value="">Duration</option>
       <option value="">0-2 Hours</option>
       <option value="">2-5Hours</option>
       <option value="">5+Hours</option>
-    </select>
-  </div>
+</select>
+ 
 
-<div class="filter-container">
-    <select id="Location">
+<select>
       <option value="">Distance (km)</option>
       <option value="">0-10</option>
       <option value="">10-25</option>
       <option value="">25+</option>
-    </select>
-  </div>
+</select>
 
+  <select>
+      <option value="">Type</option>
+      <option value="">Mountain</option>
+      <option value="">Trail</option>
+      <option value="">CrossCountry</option>
+  </select>
 
   </div>
 </section>
@@ -273,6 +336,9 @@ loadBikingEvents();
   </div>
 
 </section>
+
+<!--hambuger mobile open and close-->
+<script src="script.js"></script>
 
 
   <!-- FOOTER -->

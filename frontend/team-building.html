@@ -17,62 +17,91 @@
 <body>
 
 <!-- NAVBAR -->
-<header class="navbar">
-  <div class="nav-container">
-    <div class="logo">Trek & Tread Africa</div>
+ <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">Trek & Tread Africa</div>
 
-    <nav class="desktop-nav">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
+      <!-- DESKTOP NAV -->
+      <nav class="desktop-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li class="dropdown">
+            <div class="dropdown-trigger">
+              <a href="#activities" class="dropdown-link">Activities</a>
+              <button class="dropdown-toggle" aria-label="Open activities menu">
+                ▾
+              </button>
+            </div>
 
-        <li class="dropdown">
-          <div class="dropdown-trigger">
-            <a href="index.html#activities" class="dropdown-link">Activities</a>
-            <button class="dropdown-toggle">▾</button>
-          </div>
+            <ul class="dropdown-menu">
+              <li><a href="biking.html">Biking</a></li>
+              <li><a href="hiking.html">Hiking</a></li>
+              <li><a href="team-building.html">Team Building</a></li>
+            </ul>
+          </li>
 
-          <ul class="dropdown-menu">
-            <li><a href="biking.html">Biking</a></li>
-            <li><a href="hiking.html">Hiking</a></li>
-            <li><a href="team-building.html">Team Building</a></li>
-          </ul>
-        </li>
 
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
 
-    <button class="cta-btn desktop-cta">Book Adventure</button>
+      <!-- DESKTOP CTA -->
+      <button class="cta-btn desktop-cta" id="bookAdventureBtn">
+        <a href="#">Book Adventure</a>
+      </button>
 
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-</header>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close">&times;</button>
-  <ul>
-    <li><a href="index.html#home" class="mobile-link">Home</a></li>
-
-    <li class="mobile-dropdown">
-      <div class="mobile-dropdown-trigger">
-        <a href="index.html#activities" class="mobile-dropdown-link">Activities</a>
-        <button class="mobile-dropdown-toggle">▾</button>
+      <!-- HAMBURGER -->
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
+    </div>
+  </header>
 
-      <ul class="mobile-dropdown-menu">
-        <li><a href="biking.html">Biking</a></li>
-        <li><a href="hiking.html">Hiking</a></li>
-        <li><a href="team-building.html">Team Building</a></li>
-      </ul>
-    </li>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+      <!-- CLOSE BUTTON -->
+    <button class="mobile-close" aria-label="Close menu">&times;</button>
+    <ul>
+      <li><a href="index.html" class="mobile-link">Home</a></li>
+     <!-- <li><a href="#about" class="mobile-link">About Us</a></li>-->
 
-    <li><a href="#contact" class="mobile-link">Contact</a></li>
-    <li><button class="cta-btn mobile-link">Book Adventure</button></li>
-  </ul>
-</div>
+      <li class="mobile-dropdown">
+
+        <div class="mobile-dropdown-trigger">
+          <a href="#activities" class="mobile-dropdown-link">Activities</a>
+
+          <button class="mobile-dropdown-toggle" aria-label="Open activities menu">
+            ▾
+          </button>
+        </div>
+
+        <ul class="mobile-dropdown-menu">
+          <li><a href="biking.html">Biking</a></li>
+          <li><a href="hiking.html">Hiking</a></li>
+          <li><a href="team-building.html">Team Building</a></li>
+        </ul>
+
+      </li>
+
+
+      
+      <li><a href="#contact" class="mobile-link">Contact</a></li>
+
+      <!-- <li>
+        <button class="cta-btn mobile-link" id="mobileBookBtn">
+          <a href="booking.html">Book Adventure</a>
+        </button>
+      </li> -->
+    </ul>
+  </div>
+
+  <!-- OVERLAY -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+
 
 <!-- =====================================================
      TEAM BUILDING HEADER (NEW)
@@ -258,6 +287,8 @@
 
 </section>
 
+<!--hambuger mobile open and close-->
+<script src="script.js"></script>
 
   <!-- FOOTER -->
 <footer class="site-footer">
