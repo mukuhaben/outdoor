@@ -7,26 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Event {
-  id          String   @id @default(uuid())
+  id          String          @id @default(uuid())
   title       String
   description String
-    
-  
   activityId  String
-  activity    Activity @relation(fields: [activityId], references: [id])
-
   location    String?
   difficulty  DifficultyLevel
   distanceKm  String?
-
-  isActive    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-
+  isActive    Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  activity    Activity        @relation(fields: [activityId], references: [id])
+  images      EventImage[]
   schedules   EventSchedule[]
   pricing     PricingOption[]
-  images      EventImage[]
 }
 
 model Activity {
@@ -121,6 +115,7 @@ enum PaymentStatus {
   PAID
   FAILED
 }
+
 enum DifficultyLevel {
   EASY
   MEDIUM
