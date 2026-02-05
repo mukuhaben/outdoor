@@ -1,0 +1,134 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f6f7f9;
+  color: #222;
+}
+
+/* ---------------- AUTH ---------------- */
+
+.admin-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  background: #fff;
+  padding: 30px;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #1b5e20;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auth-card button:disabled {
+  opacity: 0.7;
+}
+
+.error-text {
+  color: #c62828;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* ---------------- DASHBOARD ---------------- */
+
+.admin-header {
+  background: #111;
+  color: #fff;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout {
+  background: #eee;
+  color: #222;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.admin-content {
+  padding: 30px;
+}
+
+.dashboard {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.dashboard-actions {
+  margin-top: 20px;
+}
+
+.card-link {
+  display: inline-block;
+  padding: 16px 20px;
+  background: #1b5e20;
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.card-link:hover {
+  background: #2e7d32;
+}
+
+/* ---------------- TABLE (unchanged, reused) ---------------- */
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.status-published {
+  color: green;
+  font-weight: bold;
+}
+
+.status-draft {
+  color: orange;
+  font-weight: bold;
+}
+
+.actions button {
+  margin-right: 6px;
+}

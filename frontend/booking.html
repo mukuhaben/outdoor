@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trek N Tread | Book Adventure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")
+        center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      background: #fff;
+      width: 100%;
+      max-width: 650px;
+      padding: 30px;
+      border-radius: 12px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1b5e20;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    select, input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    button {
+      background: #2e7d32;
+      color: #fff;
+      border: none;
+      margin-top: 25px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #1b5e20;
+    }
+
+    .price-box {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Book Your Adventure</h1>
+
+  <form id="bookingForm">
+
+    <label>Activity</label>
+    <select id="activity" required>
+      <option value="">Select activity</option>
+   
+    </select>
+
+    <label>Route / Trail</label>
+    <select id="route" required>
+      <option value="">Select route</option>
+    </select>
+    <label>Date</label>
+    <select id="schedule" required>
+      <option value="">Select date</option>
+    </select>
+
+
+<label>Full Name</label>
+<input type="text" id="name" required />
+
+<label>Email Address</label>
+<input type="email" id="email" required />
+
+    <label>Number of People</label>
+    <input type="number" id="people" min="1" required />
+
+    <label>Phone Number (Mpesa)</label>
+    <input type="tel" id="phone" placeholder="+254XXXXXXXX" required />
+
+    <label>Price Option</label>
+<select id="pricing" required>
+  <option value="">Select price</option>
+</select>
+
+<div class="price-box" id="priceBox">
+  Total: KES 0
+</div>
+
+
+    <button type="submit">Book & Pay</button>
+
+  </form>
+</div>
+
+<script>
+const API_BASE = "http://localhost:3000/api";
+const params = new URLSearchParams(window.location.search);
+const eventId = params.get("eventId");
+
+if (!eventId) {
+  alert("No event selected. Please choose an activity.");
+  throw new Error("Missing eventId");
+}
+
+const activityEl = document.getElementById("activity");
+const routeEl = document.getElementById("route");
+const scheduleEl = document.getElementById("schedule");
+const pricingEl = document.getElementById("pricing");
+const peopleEl = document.getElementById("people");
+const priceBox = document.getElementById("priceBox");
+const titleEl = document.querySelector("h1");
+
+let event = null;
+let selectedSchedule = null;
+let selectedPricing = null;
+
+/* -------- LOAD EVENT -------- */
+async function loadEvent() {
+  const res = await fetch(`${API_BASE}/events/${eventId}`);
+  if (!res.ok) {
+    alert("Failed to load event");
+    return;
+  }
+
+  event = await res.json();
+
+  /* ---- Page context ---- */
+  titleEl.textContent = `Book: ${event.title}`;
+
+  /* ---- Activity (locked) ---- */
+  activityEl.innerHTML = `
+    <option value="${event.activity.id}">
+      ${event.activity.name}
+    </option>
+  `;
+  activityEl.disabled = true;
+
+  /* ---- Route / Trail (locked) ---- */
+/* ---- Route / Trail (locked) ---- */
+routeEl.innerHTML = `
+  <option value="${event.id}">
+    ${event.title}
+  </option>
+`;
+routeEl.disabled = true;
+
+
+  /* ---- Schedules (user must choose) ---- */
+  scheduleEl.innerHTML = `<option value="">Select date</option>`;
+  event.schedules
+    .filter(s => s.status === "UPCOMING")
+    .forEach(s => {
+      const opt = document.createElement("option");
+      opt.value = s.id;
+      opt.textContent = new Date(s.date).toDateString();
+      scheduleEl.appendChild(opt);
+    });
+
+  /* ---- Pricing (user must choose) ---- */
+  pricingEl.innerHTML = `<option value="">Select price</option>`;
+  event.pricing
+    .filter(p => p.isActive)
+    .forEach(p => {
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = `${p.label} – KES ${p.amount}`;
+      opt.dataset.amount = p.amount;
+      pricingEl.appendChild(opt);
+    });
+}
+
+/* -------- PRICE -------- */
+function updatePrice() {
+  if (!selectedPricing) {
+    priceBox.textContent = "Total: KES 0";
+    return;
+  }
+
+  const qty = Number(peopleEl.value || 1);
+  const total = selectedPricing.amount * qty;
+  priceBox.textContent = `Total: KES ${total}`;
+}
+
+/* -------- LISTENERS -------- */
+scheduleEl.addEventListener("change", () => {
+  selectedSchedule = event.schedules.find(s => s.id === scheduleEl.value) || null;
+});
+
+pricingEl.addEventListener("change", () => {
+  const opt = pricingEl.selectedOptions[0];
+  if (!opt || !opt.dataset.amount) {
+    selectedPricing = null;
+    updatePrice();
+    return;
+  }
+
+  selectedPricing = {
+    id: opt.value,
+    amount: Number(opt.dataset.amount)
+  };
+  updatePrice();
+});
+
+peopleEl.addEventListener("input", updatePrice);
+
+/* -------- SUBMIT -------- */
+document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  if (!selectedSchedule || !selectedPricing) {
+    alert("Please select date and price option");
+    return;
+  }
+
+  const qty = Number(peopleEl.value);
+  const totalAmount = selectedPricing.amount * qty;
+
+  // Prepare payload with metadata
+  const payload = {
+    scheduleId: selectedSchedule.id,
+    pricingOptionId: selectedPricing.id,
+    quantity: qty,
+    totalAmount,
+    customerName: document.getElementById("name").value,
+    customerEmail: document.getElementById("email").value,
+    customerPhone: document.getElementById("phone").value,
+    activity: event.title,               // title as activity
+    route: event.location,               // location as route
+    priceOption: pricingEl.selectedOptions[0].textContent
+  };
+
+  // Initiate STK push
+  const res = await fetch(`${API_BASE}/payments/pay`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await res.json();
+  if (!res.ok) return alert(data.error || "Payment failed");
+
+  alert("STK Push sent. Confirm on phone.");
+
+  // Wait and verify payment
+  setTimeout(async () => {
+    const verifyRes = await fetch(`${API_BASE}/payments/verify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reference: data.reference })
+    });
+
+    const verifyData = await verifyRes.json();
+    if (!verifyRes.ok) {
+      console.error("Verification failed:", verifyData.error);
+      return;
+    }
+
+    // Payment successful
+    alert(`Payment successful! You paid KES ${totalAmount} for ${payload.priceOption}`);
+    document.getElementById("bookingForm").reset();
+    priceBox.textContent = "Total: KES 0";
+    selectedSchedule = null;
+    selectedPricing = null;
+  }, 15000); // ~15s wait for user to approve
+});
+
+
+loadEvent();
+</script>
+
+</body>
+</html>

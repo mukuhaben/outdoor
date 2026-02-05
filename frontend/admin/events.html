@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin · Events</title>
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <header class="admin-header">
+    <h1>Event Management</h1>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main class="admin-content">
+    <div class="toolbar">
+      <button id="createEventBtn">+ Create Event</button>
+    </div>
+
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Activity</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="eventsTableBody">
+        <tr>
+          <td colspan="4">Loading events...</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/events.js"></script>
+</body>
+</html>

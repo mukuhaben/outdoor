@@ -2,212 +2,335 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Trek N Tread | Book Adventure</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
-        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")
-        center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Arial, sans-serif;
-    }
-
-    .card {
-      background: #fff;
-      width: 100%;
-      max-width: 650px;
-      padding: 30px;
-      border-radius: 12px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #1b5e20;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 600;
-    }
-
-    select, input, textarea, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 5px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 15px;
-    }
-
-    button {
-      background: #2e7d32;
-      color: #fff;
-      border: none;
-      margin-top: 25px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background: #1b5e20;
-    }
-
-    .price-box {
-      margin-top: 15px;
-      font-weight: bold;
-      color: #2e7d32;
-    }
-  </style>
+  <title>Trek & Tread Africa</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<div class="card">
-  <h1>Book Your Adventure</h1>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">Trek & Tread Africa</div>
 
-  <form id="bookingForm">
+      <!-- DESKTOP NAV -->
+      <nav class="desktop-nav">
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li class="dropdown">
+            <div class="dropdown-trigger">
+              <a href="#activities" class="dropdown-link">Activities</a>
+              <button class="dropdown-toggle" aria-label="Open activities menu">
+                ▾
+              </button>
+            </div>
 
-    <label>Activity</label>
-    <select id="activity" required>
-      <option value="">Select activity</option>
-      <option value="Bike Riding">Bike Riding</option>
-      <option value="Hiking">Hiking</option>
-      <option value="Team Building">Team Building</option>
-    </select>
+            <ul class="dropdown-menu">
+              <li><a href="biking.html">Biking</a></li>
+              <li><a href="hiking.html">Hiking</a></li>
+              <li><a href="team-building.html">Team Building</a></li>
+            </ul>
+          </li>
 
-    <label>Route / Trail</label>
-    <select id="route" required>
-      <option value="">Select route</option>
-    </select>
-<label>Full Name</label>
-<input type="text" id="name" required />
 
-<label>Email Address</label>
-<input type="email" id="email" required />
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
 
-    <label>Number of People</label>
-    <input type="number" id="people" min="1" required />
+      <!-- DESKTOP CTA -->
+      <button class="cta-btn desktop-cta" id="bookAdventureBtn">
+        <a href="booking.html">Book Adventure</a>
+      </button>
 
-    <label>Phone Number (Mpesa)</label>
-    <input type="tel" id="phone" placeholder="+254XXXXXXXX" required />
+      <!-- HAMBURGER -->
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
 
-    <div class="price-box" id="priceBox">
-      Total: KES 0
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+      <!-- CLOSE BUTTON -->
+    <button class="mobile-close" aria-label="Close menu">&times;</button>
+    <ul>
+      <li><a href="#home" class="mobile-link">Home</a></li>
+      <li><a href="#about" class="mobile-link">About Us</a></li>
+
+      <li class="mobile-dropdown">
+
+        <div class="mobile-dropdown-trigger">
+          <a href="#activities" class="mobile-dropdown-link">Activities</a>
+
+          <button class="mobile-dropdown-toggle" aria-label="Open activities menu">
+            ▾
+          </button>
+        </div>
+
+        <ul class="mobile-dropdown-menu">
+          <li><a href="biking.html">Biking</a></li>
+          <li><a href="hiking.html">Hiking</a></li>
+          <li><a href="team-building.html">Team Building</a></li>
+        </ul>
+
+      </li>
+
+
+      
+      <li><a href="#contact" class="mobile-link">Contact</a></li>
+
+      <li>
+        <button class="cta-btn mobile-link" id="mobileBookBtn">
+          <a href="booking.html">Book Adventure</a>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- OVERLAY -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- HERO / LANDING SECTION -->
+  <section class="hero" id="home">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <h1>Explore Africa's Wild Heart</h1>
+      <p>
+        Experience unforgettable biking adventures, breathtaking hikes, and transformative team building
+        experiences across Africa's most stunning landscapes.
+      </p>
+
+      <div class="hero-actions">
+       <a href="booking.html" class="primary-btn" id="heroBookBtn">Start Your Journey</a>
+        <a href="#activities" class="secondary-btn">Explore Activities</a>
+      
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING POPUP -->
+  <div class="booking-popup" id="bookingPopup">
+    <div class="popup-content">
+      <span class="close-popup" id="closePopup">&times;</span>
+       <a href="booking.html">Book an Adventure</a>
+    </div>
+  </div>
+
+   <!------About Us---------------->
+<section class="about-section" id="about">
+  <div class="section-container">
+
+    <h2 class="section-title">Who Are We?</h2>
+
+    <p class="about-text">
+      Trek & Tread Africa is an adventure-driven company dedicated to creating unforgettable
+      biking, hiking, and team-building experiences across Africa’s most breathtaking landscapes.
+      We blend exploration, wellness, and human connection to help individuals and teams
+      reconnect with nature and each other.
+    </p>
+
+  </div>
+</section>
+
+
+<div class="section-divider"></div>
+
+
+   <!------Activities---------------->
+
+<section class="activities-section" id="activities">
+  <div class="section-container">
+
+    <h2 class="section-title">What Do We Do?</h2>
+
+    <!-- ACTIVITY 1 -->
+    <div class="activity-row">
+      <div class="activity-text">
+        <h3>Biking Adventures</h3>
+        <p>
+          Ride through scenic trails, mountain paths, and open landscapes designed for both
+          beginners and seasoned cyclists. Our biking adventures combine fitness, thrill,
+          and exploration.
+        </p>
+
+        <a href="biking.html" class="activity-link">
+          Explore our biking experiences →
+        </a>
+
+      </div>
+
+      <div class="activity-media">
+        <!-- Image or video -->
+        <img src="./assets/images/biking.png" alt="Biking Adventure">
+      </div>
     </div>
 
-    <button type="submit">Book & Pay</button>
+    <!-- ACTIVITY 2 (REVERSED) -->
+    <div class="activity-row reverse">
+      <div class="activity-text">
+        <h3>Hiking Experiences</h3>
+        <p>
+          Explore nature on foot through guided hikes that challenge the body and calm the mind.
+          From sunrise climbs to forest walks, our hikes are immersive and rewarding.
+        </p>
 
-  </form>
-</div>
+        <a href="hiking.html" class="activity-link">
+          Explore our hiking experiences →
+        </a>
 
-<script>
-  const routes = {
-    "Bike Riding": {
-      "Ngong Hills Loop": 1000,
-      "Karura Forest Trail": 1200
-    },
-    "Hiking": {
-      "Mount Longonot": 2000,
-      "Elephant Hill": 2500
-    },
-    "Team Building": {
-      "Forest Challenge Course": 3000,
-      "Outdoor Games Park": 2500
-    }
-  };
+      </div>
 
-  const activityEl = document.getElementById("activity");
-  const routeEl = document.getElementById("route");
-  const peopleEl = document.getElementById("people");
-  const priceBox = document.getElementById("priceBox");
+      <div class="activity-media">
+        <img src="./assets/images/hiking.png" alt="Hiking Adventure">
+      </div>
+    </div>
 
-  function updateRoutes() {
-    routeEl.innerHTML = '<option value="">Select route</option>';
-    const selected = routes[activityEl.value];
-    if (!selected) return;
+    <!-- ACTIVITY 3 -->
+    <div class="activity-row">
+      <div class="activity-text">
+        <h3>Team Building</h3>
+        <p>
+          Strengthen collaboration, trust, and leadership through purpose-driven outdoor team
+          building activities tailored for corporate teams and groups.
+        </p>
 
-    Object.keys(selected).forEach(route => {
-      const opt = document.createElement("option");
-      opt.value = route;
-      opt.textContent = `${route} (KES ${selected[route]})`;
-      routeEl.appendChild(opt);
-    });
-  }
+        <a href="team-building.html" class="activity-link">
+          Check out out team building exercises →
+        </a>
 
-  function updatePrice() {
-    const activity = activityEl.value;
-    const route = routeEl.value;
-    const people = Number(peopleEl.value);
+      </div>
 
-    if (!activity || !route || !people) {
-      priceBox.textContent = "Total: KES 0";
-      return;
-    }
+      <div class="activity-media">
+        <img src="./assets/images/team-building.png" alt="Team Building">
+      </div>
+    </div>
 
-    const price = routes[activity][route];
-    priceBox.textContent = `Total: KES ${price * people}`;
-  }
+  </div>
+</section>
 
-  activityEl.addEventListener("change", updateRoutes);
-  routeEl.addEventListener("change", updatePrice);
-  peopleEl.addEventListener("input", updatePrice);
+   <!-------Contact Section------------->
 
-  document.getElementById("bookingForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+<section id="contact" class="contact-section">
 
-  const payload = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    activity: activityEl.value,
-    route: routeEl.value,
-    people: Number(peopleEl.value)
-  };
+  <div class="contact-container">
 
-  try {
-    const payRes = await fetch("http://localhost:3000/pay", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <h2>Let’s Explore Together</h2>
+      <p>
+        Ready for your next outdoor adventure or team experience?
+        Reach out and let’s plan something unforgettable with Trek & Tread.
+      </p>
 
-    const payData = await payRes.json();
+      <div class="contact-channels">
 
-    if (!payRes.ok) {
-      return alert("Failed to initiate payment");
-    }
+        <a href="#" target="_blank">
+          <i class="fa-brands fa-instagram"></i>
+          Instagram
+        </a>
 
-    alert("STK Push sent. Please confirm payment on your phone.");
+        <a href="https://wa.me/254700000000" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i>
+          WhatsApp
+        </a>
 
-    // Wait a bit then verify
-    setTimeout(async () => {
-      const verifyRes = await fetch("http://localhost:3000/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ reference: payData.reference })
-      });
+        <a href="mailto:info@trekandtread.com">
+          <i class="fa-solid fa-envelope"></i>
+          Email
+        </a>
 
-      const verifyData = await verifyRes.json();
+        <a href="tel:+254700000000">
+          <i class="fa-solid fa-phone"></i>
+          Call
+        </a>
 
-      if (verifyRes.ok) {
-        alert("Payment successful! Booking confirmed.");
-      } else {
-        alert("Payment not completed yet. Try again.");
-      }
-    }, 8000);
+      </div>
+    </div>
 
-  } catch (err) {
-    alert("Backend not reachable");
-  }
-});
+    <!-- Contact Form -->
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="text" placeholder="Group / Organization (Optional)">
+      <textarea rows="5" placeholder="Tell us what kind of experience you’re looking for..." required></textarea>
 
-</script>
+      <button type="submit">Send Message</button>
+    </form>
+
+  </div>
+
+</section>
+
+
+
+
+  <script src="script.js"></script>
+
+
+<footer class="site-footer">
+
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-brand">
+      <h3>Trek & Tread</h3>
+      <p>
+        Creating unforgettable outdoor adventures through biking,
+        hiking, and team experiences across Kenya.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#activities">Activities</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Activities -->
+    <div class="footer-links">
+      <h4>Activities</h4>
+      <a href="#">Biking</a>
+      <a href="#">Hiking</a>
+      <a href="#">Team Building</a>
+    </div>
+
+    <!-- Contact -->
+    <div class="footer-contact">
+      <h4>Contact</h4>
+
+      <p>
+        <i class="fa-solid fa-phone"></i>
+        +254 700 000 000
+      </p>
+
+      <p>
+        <i class="fa-solid fa-envelope"></i>
+        info@trekandtread.com
+      </p>
+
+      <p>
+        <i class="fa-brands fa-whatsapp"></i>
+        <a href="https://wa.me/254700000000" target="_blank">WhatsApp</a>
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Trek & Tread. All rights reserved.</p>
+  </div>
+
+</footer>
+
 
 </body>
 </html>

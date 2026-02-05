@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-auth">
+
+  <div class="auth-card">
+    <h2>Admin Login</h2>
+
+    <form id="loginForm">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit" id="loginBtn">Login</button>
+    </form>
+
+    <p id="error" class="error-text"></p>
+  </div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const btn = document.getElementById("loginBtn");
+  const errorEl = document.getElementById("error");
+
+  btn.disabled = true;
+  btn.textContent = "Signing in...";
+  errorEl.textContent = "";
+
+  const form = new FormData(e.target);
+
+  const res = await fetch("http://localhost:3000/api/admin/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(Object.fromEntries(form))
+  });
+
+  const data = await res.json();
+
+  btn.disabled = false;
+  btn.textContent = "Login";
+
+  if (!res.ok) {
+    errorEl.textContent = data.error || "Invalid credentials";
+    return;
+  }
+
+  localStorage.setItem("adminToken", data.token);
+  window.location.replace("index.html");
+});
+</script>
+
+</body>
+</html>

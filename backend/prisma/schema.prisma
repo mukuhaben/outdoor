@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+    
+  
+  activityId  String
+  activity    Activity @relation(fields: [activityId], references: [id])
+
+  location    String?
+  difficulty  DifficultyLevel
+  distanceKm  String?
+
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  schedules   EventSchedule[]
+  pricing     PricingOption[]
+  images      EventImage[]
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  events    Event[]
+}
+
+model EventSchedule {
+  id       String         @id @default(uuid())
+  eventId  String
+  date     DateTime
+  status   ScheduleStatus @default(UPCOMING)
+  duration String?
+  bookings Booking[]
+  event    Event          @relation(fields: [eventId], references: [id])
+
+  @@index([eventId])
+  @@index([date])
+}
+
+model PricingOption {
+  id       String    @id @default(uuid())
+  eventId  String
+  label    String
+  amount   Int
+  currency String    @default("KES")
+  isActive Boolean   @default(true)
+  bookings Booking[]
+  event    Event     @relation(fields: [eventId], references: [id])
+
+  @@index([eventId])
+}
+
+model Booking {
+  id              String        @id @default(uuid())
+  scheduleId      String
+  pricingOptionId String
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  quantity        Int           @default(1)
+  totalAmount     Int
+  paymentStatus   PaymentStatus @default(PENDING)
+  createdAt       DateTime      @default(now())
+  pricingOption   PricingOption @relation(fields: [pricingOptionId], references: [id])
+  schedule        EventSchedule @relation(fields: [scheduleId], references: [id])
+  payment         Payment?
+
+  @@index([scheduleId])
+}
+
+model Payment {
+  id         String        @id @default(uuid())
+  bookingId  String        @unique
+  provider   String
+  reference  String        @unique
+  status     PaymentStatus
+  verifiedAt DateTime?
+  rawData    Json?
+  booking    Booking       @relation(fields: [bookingId], references: [id])
+}
+
+model EventImage {
+  id       String @id @default(uuid())
+  eventId  String
+  imageUrl String
+  position Int    @default(0)
+  event    Event  @relation(fields: [eventId], references: [id])
+
+  @@index([eventId])
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+enum ScheduleStatus {
+  UPCOMING
+  FULL
+  PAST
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+enum DifficultyLevel {
+  EASY
+  MEDIUM
+  HARD
+}

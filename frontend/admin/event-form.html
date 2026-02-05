@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin · Event Form</title>
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+<header class="admin-header">
+  <h1 id="formTitle">Create Event</h1>
+  <button onclick="window.location.href='events.html'">Back</button>
+</header>
+
+<main class="admin-content">
+  <form id="eventForm">
+
+    <label>Title</label>
+    <input type="text" id="title" required />
+
+    <label>Description</label>
+    <textarea id="description" required></textarea>
+
+    <label>Activity</label>
+    <select id="activityId" required></select>
+
+    <hr />
+
+    <label>Location</label>
+<input type="text" id="location" name="location" />
+
+
+    <select id="difficulty" name="difficulty">
+  <option value="">Select difficulty</option>
+  <option value="EASY">Easy</option>
+  <option value="MEDIUM">Medium</option>
+  <option value="HARD">Hard</option>
+</select>
+
+   <label>Distance</label>
+<input type="text" id="distanceKm" name="distanceKm" />
+
+    <br /><br />
+
+    <button type="submit">Save Event</button>
+
+  </form>
+
+  <p id="formMessage"></p>
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/event-form.js"></script>
+</body>
+</html>

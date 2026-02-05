@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trek & Tread Biking</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/images/favicon.png" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+
+<!-- ================= NAVBAR (unchanged) ================= -->
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo">Trek & Tread Africa</div>
+
+    <nav class="desktop-nav">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+
+        <li class="dropdown">
+          <div class="dropdown-trigger">
+            <a href="index.html#activities" class="dropdown-link">Activities</a>
+            <button class="dropdown-toggle">▾</button>
+          </div>
+
+          <ul class="dropdown-menu">
+            <li><a href="biking.html">Biking</a></li>
+            <li><a href="hiking.html">Hiking</a></li>
+            <li><a href="team-building.html">Team Building</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <button class="cta-btn desktop-cta">Book Adventure</button>
+  </div>
+</header>
+
+<!-- ================= HEADER ================= -->
+
+<header class="biking-header">
+  <div class="header-overlay"></div>
+  <div class="header-content">
+    <h1>Trek & Tread Hiking Adventures</h1>
+    <p>Explore our thrilling Hike routes and book your next adventure today!</p>
+  </div>
+</header>
+
+
+<!-- ================= FILTER BAR (UI READY) ================= -->
+<!-- FILTERS -->
+<section class="bike-filters">
+  <div class="filter-container">
+
+    <select>
+      <option value="">Difficulty</option>
+      <option value="easy">Easy</option>
+      <option value="moderate">Moderate</option>
+      <option value="hard">Hard</option>
+    </select>
+
+    <select>
+      <option value="">Elevation Gain</option>
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+
+    <select>
+      <option value="">Duration</option>
+      <option value="half-day">Half Day</option>
+      <option value="full-day">Full Day</option>
+      <option value="multi-day">Multi-Day</option>
+    </select>
+
+    <select>
+      <option value="">Trail Type</option>
+      <option value="forest">Forest</option>
+      <option value="mountain">Mountain</option>
+      <option value="savannah">Savannah</option>
+    </select>
+
+    <select>
+      <option value="">Location</option>
+      <option value="nairobi">Nairobi</option>
+      <option value="mt-kenya">Mt. Kenya</option>
+      <option value="aberdare">Aberdares</option>
+    </select>
+
+  </div>
+</section>
+
+<!-- ================= BIKING CARDS ================= -->
+<section class="biking-cards">
+  <div class="cards-container" id="bikingCards">
+    <!-- Injected by JS -->
+  </div>
+</section>
+
+<!-- ================= CONTACT + FOOTER (unchanged) ================= -->
+<!-- keep your existing contact + footer markup here -->
+<script>
+const cardsContainer = document.getElementById("bikingCards");
+const FALLBACK_IMAGE = "./assets/images/waterfall-hike.png";
+const API_BASE = "http://localhost:3000/api"; // backend origin
+
+function formatDate(dateStr) {
+  if (!dateStr) return "TBA";
+  const d = new Date(dateStr);
+  return isNaN(d) ? "TBA" : d.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
+}
+
+function getLowestPrice(pricing = []) {
+  if (!Array.isArray(pricing) || !pricing.length) return null;
+  return Math.min(...pricing.map(p => p.amount));
+}
+
+function getNextSchedule(schedules = []) {
+  if (!Array.isArray(schedules)) return null;
+  return schedules
+    .filter(s => s.status === "UPCOMING")
+    .sort((a, b) => new Date(a.date) - new Date(b.date))[0] || null;
+}
+
+async function loadHikingEvents() {
+  const res = await fetch(`${API_BASE}/events?category=hiking&status=published`);
+  const events = await res.json();
+
+  // filter hiking events
+  const hikingEvents = events.filter(e =>
+    e.activity?.slug?.toLowerCase() === "hiking"
+  );
+
+  cardsContainer.innerHTML = "";
+
+  if (!hikingEvents.length) {
+    cardsContainer.innerHTML =
+      "<p>No published hiking events available.</p>";
+    return;
+  }
+
+  hikingEvents.forEach(event => {
+    const schedule = getNextSchedule(event.schedules);
+    const lowestPrice = getLowestPrice(event.pricing);
+
+    const image = event.images?.[0]?.imageUrl || FALLBACK_IMAGE;
+
+    const card = document.createElement("div");
+    card.className = "bike-card";
+
+    card.innerHTML = `
+      <div class="card-media">
+        <img src="${image}" alt="${event.title}">
+      </div>
+
+      <div class="card-info">
+        <h3>${event.title}</h3>
+
+        <p><i class="fa-solid fa-map-marker-alt"></i>
+          ${event.location || "TBA"}
+        </p>
+
+        <p><i class="fa-solid fa-calendar-days"></i>
+          ${formatDate(schedule?.date)}
+        </p>
+
+        <p><i class="fa-solid fa-mountain"></i>
+          Difficulty: ${event.difficulty || "TBA"}
+        </p>
+
+        <p><i class="fa-solid fa-road"></i>
+          Distance: ${event.distanceKm || "TBA"}
+        </p>
+
+        <p><i class="fa-solid fa-dollar-sign"></i>
+          ${lowestPrice ? `From KES ${lowestPrice}` : "Pricing TBA"}
+        </p>
+
+      </div>
+    `;
+        card.onclick = () => {
+  window.location.href = `booking.html?eventId=${event.id}`;
+};
+    cardsContainer.appendChild(card);
+  });
+}
+
+
+
+loadHikingEvents();
+</script>
+
+ <!-- CONTACT SECTION -->
+<section id="contact" class="contact-section">
+
+  <div class="contact-container">
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <h2>Let’s Explore Together</h2>
+      <p>
+        Ready for your next outdoor adventure or team experience?
+        Reach out and let’s plan something unforgettable with Trek & Tread.
+      </p>
+
+      <div class="contact-channels">
+
+        <a href="#" target="_blank">
+          <i class="fa-brands fa-instagram"></i>
+          Instagram
+        </a>
+
+        <a href="https://wa.me/254700000000" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i>
+          WhatsApp
+        </a>
+
+        <a href="mailto:info@trekandtread.com">
+          <i class="fa-solid fa-envelope"></i>
+          Email
+        </a>
+
+        <a href="tel:+254700000000">
+          <i class="fa-solid fa-phone"></i>
+          Call
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="text" placeholder="Group / Organization (Optional)">
+      <textarea rows="5" placeholder="Tell us what kind of experience you’re looking for..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+  </div>
+
+</section>
+
+
+  <!-- FOOTER -->
+<footer class="site-footer">
+
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-brand">
+      <h3>Trek & Tread</h3>
+      <p>
+        Creating unforgettable outdoor adventures through biking,
+        hiking, and team experiences across Kenya.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About Us</a>
+      <a href="index.html#activities">Activities</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Activities -->
+    <div class="footer-links">
+      <h4>Activities</h4>
+      <a href="biking.html">Biking</a>
+      <a href="hiking.html">Hiking</a>
+      <a href="team-building.html">Team Building</a>
+    </div>
+
+    <!-- Contact -->
+    <div class="footer-contact">
+      <h4>Contact</h4>
+
+      <p>
+        <i class="fa-solid fa-phone"></i>
+        +254 700 000 000
+      </p>
+
+      <p>
+        <i class="fa-solid fa-envelope"></i>
+        info@trekandtread.com
+      </p>
+
+      <p>
+        <i class="fa-brands fa-whatsapp"></i>
+        <a href="https://wa.me/254700000000" target="_blank">WhatsApp</a>
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Trek & Tread. All rights reserved.</p>
+  </div>
+
+</footer>
+
+
+</body>
+</html>

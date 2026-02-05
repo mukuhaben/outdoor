@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trek & Tread Team Building</title>
+
+  <!-- REUSE: same CSS file -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- REUSE: Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- REUSE: Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo">Trek & Tread Africa</div>
+
+    <nav class="desktop-nav">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+
+        <li class="dropdown">
+          <div class="dropdown-trigger">
+            <a href="index.html#activities" class="dropdown-link">Activities</a>
+            <button class="dropdown-toggle">▾</button>
+          </div>
+
+          <ul class="dropdown-menu">
+            <li><a href="biking.html">Biking</a></li>
+            <li><a href="hiking.html">Hiking</a></li>
+            <li><a href="team-building.html">Team Building</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <button class="cta-btn desktop-cta">Book Adventure</button>
+
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close">&times;</button>
+  <ul>
+    <li><a href="index.html#home" class="mobile-link">Home</a></li>
+
+    <li class="mobile-dropdown">
+      <div class="mobile-dropdown-trigger">
+        <a href="index.html#activities" class="mobile-dropdown-link">Activities</a>
+        <button class="mobile-dropdown-toggle">▾</button>
+      </div>
+
+      <ul class="mobile-dropdown-menu">
+        <li><a href="biking.html">Biking</a></li>
+        <li><a href="hiking.html">Hiking</a></li>
+        <li><a href="team-building.html">Team Building</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#contact" class="mobile-link">Contact</a></li>
+    <li><button class="cta-btn mobile-link">Book Adventure</button></li>
+  </ul>
+</div>
+
+<!-- =====================================================
+     TEAM BUILDING HEADER (NEW)
+===================================================== -->
+<header class="team-header">
+  <div class="header-overlay"></div>
+  <div class="header-content">
+    <h1>Team Building Experiences</h1>
+    <p>
+      Purpose-driven outdoor team building designed to strengthen collaboration,
+      trust, and leadership.
+    </p>
+  </div>
+</header>
+
+<!-- =====================================================
+     WHY TEAM BUILDING (NEW)
+===================================================== -->
+<section class="team-why">
+  <div class="team-why-container">
+    <h2>Why Team Building with Trek & Tread?</h2>
+    <p>
+      We design immersive outdoor experiences that help teams communicate better,
+      trust deeper, and perform stronger, all while exploring Kenya’s great landscape.
+    </p>
+  </div>
+</section>
+
+
+<!-- =====================================================
+     TEAM BUILDING PACKAGES
+     REUSE: cards-container + bike-card styles
+===================================================== -->
+<section class="team-packages">
+  <div class="cards-container">
+
+    <div class="bike-card">
+      <div class="card-info">
+        <h3>Leadership & Strategy Retreat</h3>
+        <p><i class="fa-solid fa-users"></i> Ideal for leadership teams</p>
+        <p><i class="fa-solid fa-bullseye"></i> Focus: Strategy & Decision Making</p>
+        <p><i class="fa-solid fa-location-dot"></i> Location: Custom</p>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="card-info">
+        <h3>Trust & Collaboration Camp</h3>
+        <p><i class="fa-solid fa-people-group"></i> Ideal for growing teams</p>
+        <p><i class="fa-solid fa-handshake"></i> Focus: Trust & Communication</p>
+        <p><i class="fa-solid fa-location-dot"></i> Location: Outdoor venues</p>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="card-info">
+        <h3>Fun & Bonding Adventure Day</h3>
+        <p><i class="fa-solid fa-face-smile"></i> Ideal for company retreats</p>
+        <p><i class="fa-solid fa-heart"></i> Focus: Morale & Team Bonding</p>
+        <p><i class="fa-solid fa-location-dot"></i> Location: Flexible</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================
+     CUSTOM TEAM BUILDING REQUEST (NEW CORE FEATURE)
+===================================================== -->
+<section class="team-custom">
+  <div class="custom-container">
+
+    <h2>Request a Custom Team Building Experience</h2>
+    <p>
+      Tell us about your team and goals — we’ll design a tailor-made experience
+      just for you.
+    </p>
+
+    <form class="custom-team-form">
+
+      <input type="text" placeholder="Company / Organization Name" required />
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Email Address" required />
+
+      <select required>
+        <option value="">Team Size</option>
+        <option>5 – 10</option>
+        <option>10 – 20</option>
+        <option>20 – 50</option>
+        <option>50+</option>
+      </select>
+
+      <label>Team Objectives</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" /> Communication</label>
+        <label><input type="checkbox" /> Leadership</label>
+        <label><input type="checkbox" /> Trust Building</label>
+        <label><input type="checkbox" /> Team Bonding</label>
+      </div>
+
+      <textarea
+        rows="5"
+        placeholder="Any specific challenges, goals, or ideas?"
+      ></textarea>
+
+      <button type="submit" class="cta-btn">
+        Request Custom Team Building
+      </button>
+
+      <small>
+        No commitment required. We’ll get back with a tailored proposal.
+      </small>
+
+    </form>
+  </div>
+</section>
+
+<!-- =====================================================
+     HOW IT WORKS (NEW)
+===================================================== -->
+<section class="team-process">
+  <div class="container">
+    <h2>How It Works</h2>
+
+    <div class="process-steps">
+      <p><strong>1.</strong> You tell us your needs</p>
+      <p><strong>2.</strong> We design your experience</p>
+      <p><strong>3.</strong> You approve the plan</p>
+      <p><strong>4.</strong> We deliver an unforgettable experience</p>
+    </div>
+  </div>
+</section>
+
+  <!-- CONTACT SECTION -->
+<section id="contact" class="contact-section">
+
+  <div class="contact-container">
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <h2>Let’s Explore Together</h2>
+      <p>
+        Ready for your next outdoor adventure or team experience?
+        Reach out and let’s plan something unforgettable with Trek & Tread.
+      </p>
+
+      <div class="contact-channels">
+
+        <a href="#" target="_blank">
+          <i class="fa-brands fa-instagram"></i>
+          Instagram
+        </a>
+
+        <a href="https://wa.me/254700000000" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i>
+          WhatsApp
+        </a>
+
+        <a href="mailto:info@trekandtread.com">
+          <i class="fa-solid fa-envelope"></i>
+          Email
+        </a>
+
+        <a href="tel:+254700000000">
+          <i class="fa-solid fa-phone"></i>
+          Call
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="text" placeholder="Group / Organization (Optional)">
+      <textarea rows="5" placeholder="Tell us what kind of experience you’re looking for..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+  </div>
+
+</section>
+
+
+  <!-- FOOTER -->
+<footer class="site-footer">
+
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-brand">
+      <h3>Trek & Tread</h3>
+      <p>
+        Creating unforgettable outdoor adventures through biking,
+        hiking, and team experiences across Kenya.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About Us</a>
+      <a href="index.html#activities">Activities</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Activities -->
+    <div class="footer-links">
+      <h4>Activities</h4>
+      <a href="biking.html">Biking</a>
+      <a href="hiking.html">Hiking</a>
+      <a href="team-building.html">Team Building</a>
+    </div>
+
+    <!-- Contact -->
+    <div class="footer-contact">
+      <h4>Contact</h4>
+
+      <p>
+        <i class="fa-solid fa-phone"></i>
+        +254 700 000 000
+      </p>
+
+      <p>
+        <i class="fa-solid fa-envelope"></i>
+        info@trekandtread.com
+      </p>
+
+      <p>
+        <i class="fa-brands fa-whatsapp"></i>
+        <a href="https://wa.me/254700000000" target="_blank">WhatsApp</a>
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Trek & Tread. All rights reserved.</p>
+  </div>
+
+</footer>
+
+<!-- REUSE: script.js -->
+<script src="script.js"></script>
+
+</body>
+</html>

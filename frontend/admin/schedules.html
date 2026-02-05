@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin · Schedules</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<header class="admin-header">
+  <h1>Event Schedules</h1>
+  <button onclick="goBack()">Back</button>
+</header>
+
+<main class="admin-content">
+
+<form id="scheduleForm">
+  <h3>Add Schedule</h3>
+
+  <label>Date</label>
+  <input type="date" id="date" required>
+
+  <label>duration</label>
+  <input type="string" id="duration" required>
+
+  <button type="submit">Add Schedule</button>
+</form>
+
+<hr>
+
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>duration</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="scheduleTable">
+    <tr><td colspan="4">Loading...</td></tr>
+  </tbody>
+</table>
+
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/schedules.js"></script>
+</body>
+</html>

@@ -1,8 +1,8 @@
-# dependencies
-node_modules/
+# Always ignore dependencies
+**/node_modules/
 
-# env
-.env
+# Env files
+**/.env
 
 # prisma generated
 src/generated/prisma
