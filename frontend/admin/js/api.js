@@ -1,4 +1,4 @@
-/*
+
 const API_BASE = "/api/admin";
 
 function getToken() {
@@ -25,7 +25,7 @@ async function apiFetch(endpoint, options = {}) {
 
   return response.json();
 }
-*/
+/*
 const ADMIN_API_BASE = "/api/admin";
 const PUBLIC_API_BASE = "/api";
 
@@ -65,3 +65,4 @@ async function apiFetchPublic(endpoint, options = {}) {
 
   return response.json();
 }
+*/

@@ -18,11 +18,11 @@ app.use("/uploads", express.static("uploads"));//uploads static files.
 // Serve frontend folder
 app.use(express.static(path.join(__dirname, "../../frontend")));
 // Admin pages fallback
-app.get("/admin/*rest", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "../../frontend/admin", "index.html")
-  );
+// Serve SPA admin pages but exclude API
+app.get(/^\/admin\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/admin/index.html"));
 });
+
 
 
 

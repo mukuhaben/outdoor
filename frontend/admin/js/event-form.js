@@ -15,8 +15,8 @@ const distanceInput = document.getElementById("distanceKm");
 if (eventId) formTitle.textContent = "Edit Event";
 
 async function loadActivities() {
-  //const activities = await apiFetch("/activities");
-  const activities = await apiFetchPublic("/activities");
+  const activities = await apiFetch("/activities");
+ // const activities = await apiFetchPublic("/activities");
 
   activities.forEach(a => {
     const opt = document.createElement("option");

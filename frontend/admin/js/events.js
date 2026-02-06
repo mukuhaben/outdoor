@@ -14,8 +14,8 @@ createBtn.onclick = () => {
 async function loadEvents() {
   tableBody.innerHTML = `<tr><td colspan="4">Loading...</td></tr>`;
 
-  //const events = await apiFetch("/events");
-  const events = await apiFetchPublic("/events");
+  const events = await apiFetch("/events");
+  //const events = await apiFetchPublic("/events");
 
 
   if (!events || events.length === 0) {
