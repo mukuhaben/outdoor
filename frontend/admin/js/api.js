@@ -1,3 +1,4 @@
+/*
 const API_BASE = "/api/admin";
 
 function getToken() {
@@ -21,6 +22,46 @@ async function apiFetch(endpoint, options = {}) {
     window.location.href = "admin-login.html";
     return;
   }
+
+  return response.json();
+}
+*/
+const ADMIN_API_BASE = "/api/admin";
+const PUBLIC_API_BASE = "/api";
+
+function getToken() {
+  return localStorage.getItem("adminToken");
+}
+
+async function apiFetch(endpoint, options = {}) {
+  const token = getToken();
+
+  const response = await fetch(ADMIN_API_BASE + endpoint, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      ...(options.headers || {})
+    }
+  });
+
+  if (response.status === 401) {
+    alert("Session expired. Please log in again.");
+    window.location.href = "admin-login.html";
+    return;
+  }
+
+  return response.json();
+}
+
+async function apiFetchPublic(endpoint, options = {}) {
+  const response = await fetch(PUBLIC_API_BASE + endpoint, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    }
+  });
 
   return response.json();
 }
