@@ -14,10 +14,16 @@ app.use('/api/payments/webhook', paymentWebhookRoutes);//If express.json() runs 
 
 app.use(cors());
 app.use(express.json());
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads"));//uploads static files.
 // Serve frontend folder
 app.use(express.static(path.join(__dirname, "../../frontend")));
-app.use("/uploads", express.static("uploads"));
+// Admin pages fallback
+app.get("/admin/*", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../../frontend/admin", "index.html")
+  );
+});
+
 
 
 
