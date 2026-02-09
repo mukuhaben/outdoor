@@ -94,15 +94,17 @@ exports.paystackWebhook = async (req, res) => {
 
   const event = JSON.parse(req.body.toString());
 
-  if (event.event === "charge.success") {
-    const reference = event.data.reference;
+if (event.event === "charge.success") {
+  const reference = event.data.reference;
 
-    try {
-      await paymentService.verifyPayment(reference);
-    } catch (err) {
-      console.error("Webhook verify failed:", err.message);
-    }
+  try {
+    await paymentService.verifyPayment(reference);
+    console.log(`✅ Verified payment ${reference}`);
+  } catch (err) {
+    console.error(`❌ Webhook verify failed for ${reference}:`, err.message);
   }
+}
 
-  res.sendStatus(200);
+res.sendStatus(200); // always respond 200
+
 };

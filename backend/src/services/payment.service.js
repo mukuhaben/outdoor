@@ -125,22 +125,31 @@ exports.verifyPayment = async (reference) => {
   });
 
   // Prepare data for Google Sheets and email
-  const bookingForSheets = {
-    name: booking.customerName,
-    email: booking.customerEmail,
-    phone: booking.customerPhone,
-    activity: booking.schedule.event.title,  // activity = title
-    route: booking.schedule.event.location, // route = location
-    people: booking.quantity,
-    priceOption: meta.priceOption,
-    amount: booking.totalAmount,
-    reference
-  };
+const bookingForSheets = {
+  name: booking.customerName,
+  email: booking.customerEmail,
+  phone: booking.customerPhone,
+  activity: booking.schedule.event.title,  // activity = title
+  route: booking.schedule.event.location, // route = location
+  people: booking.quantity,
+  priceOption: meta.priceOption,
+  amount: booking.totalAmount,
+  reference
+};
 
-  await sendToGoogleSheets(bookingForSheets);
-  await sendReceiptEmail(bookingForSheets).catch((err) => {
-    console.error("Email sending failed:", err.message);
+// Fire side-effects safely
+Promise.allSettled([
+  sendToGoogleSheets(bookingForSheets),
+  sendReceiptEmail(bookingForSheets)
+]).then(results => {
+  results.forEach((r, i) => {
+    if (r.status === "rejected") {
+      console.error(
+        i === 0 ? "❌ Google Sheets failed" : "❌ Email failed",
+        r.reason?.message || r.reason
+      );
+    }
   });
+});
 
-  return true;
 };
