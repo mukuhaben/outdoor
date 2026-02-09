@@ -14,22 +14,22 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-
+// Debug: confirm env vars at runtime
 console.log("SMTP_HOST:", process.env.SMTP_HOST);
 console.log("SMTP_USER:", process.env.SMTP_USER);
 console.log("SMTP_PORT:", process.env.SMTP_PORT);
 
 /**
- * Verify SMTP connection at startup
- * This will immediately show auth / TLS errors in Render logs
+ * Verify SMTP connection at startup (Render-safe, Node 22 compatible)
  */
-transporter.verify((err, success) => {
-  if (err) {
-    console.error("❌ SMTP connection failed:", err);
-  } else {
+(async () => {
+  try {
+    await transporter.verify();
     console.log("✅ SMTP server ready to send emails");
+  } catch (err) {
+    console.error("❌ SMTP verify failed:", err);
   }
-});
+})();
 
 /**
  * Send booking receipt email
@@ -68,9 +68,10 @@ exports.sendReceiptEmail = async (data) => {
     console.log("📧 Receipt email sent to:", data.email);
   } catch (error) {
     console.error("❌ Email sending failed:", error);
-    throw error; // bubble up so payment flow can react
+    throw error;
   }
 };
+
 
 
 /*
