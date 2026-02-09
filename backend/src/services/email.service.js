@@ -1,18 +1,19 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,            // smtp.zoho.com
-  port: Number(process.env.SMTP_PORT),    // 465
-  secure: true,                           // REQUIRED for port 465
+  host: process.env.SMTP_HOST,         // smtp.zoho.com
+  port: 587,                            // changed from 465
+  secure: false,                        // STARTTLS
   auth: {
-    user: process.env.SMTP_USER,          // info@tambuaphish.store
-    pass: process.env.SMTP_PASS           // Zoho APP PASSWORD
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
   },
   tls: {
-    servername: process.env.SMTP_HOST,    // Zoho requires SNI
-    rejectUnauthorized: false             // Render TLS quirk
+    ciphers: "SSLv3",
+    rejectUnauthorized: false
   }
 });
+
 
 // Debug: confirm env vars at runtime
 console.log("SMTP_HOST:", process.env.SMTP_HOST);
