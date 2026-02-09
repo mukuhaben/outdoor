@@ -14,6 +14,11 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+
+console.log("SMTP_HOST:", process.env.SMTP_HOST);
+console.log("SMTP_USER:", process.env.SMTP_USER);
+console.log("SMTP_PORT:", process.env.SMTP_PORT);
+
 /**
  * Verify SMTP connection at startup
  * This will immediately show auth / TLS errors in Render logs
