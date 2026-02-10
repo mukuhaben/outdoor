@@ -8,7 +8,7 @@ exports.sendReceiptEmail = async (data) => {
     await axios.post(
       RESEND_API,
       {
-        from: "Trek N Tread <info@send.tambuaphish.store>",
+        from: "Trek N Tread <info@.tambuaphish.store>",
         to: [data.email],
         subject: "Booking Confirmation – Trek N Tread",
         html: `
